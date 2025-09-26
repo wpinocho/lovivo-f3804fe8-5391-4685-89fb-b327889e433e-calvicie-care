@@ -5,10 +5,9 @@ import { SocialLinks } from '@/components/SocialLinks'
 import { FloatingCart } from '@/components/FloatingCart'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
-import { ShoppingCart } from 'lucide-react'
+import { ShoppingCart, Phone, Mail } from 'lucide-react'
 import { useCartUI } from '@/components/CartProvider'
 import { useCart } from '@/contexts/CartContext'
-import { Input } from '@/components/ui/input'
 
 /**
  * EDITABLE TEMPLATE - EcommerceTemplate
@@ -41,13 +40,19 @@ export const EcommerceTemplate = ({
   const totalItems = getTotalItems()
 
   const header = (
-    <div className={`py-4 ${headerClassName}`}>
+    <div className={`py-4 bg-white shadow-sm border-b ${headerClassName}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <Link to="/">
-              <BrandLogoLeft />
+            <Link to="/" className="flex items-center space-x-3">
+              <div className="w-10 h-10 medical-gradient rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-xl">HC</span>
+              </div>
+              <div>
+                <h1 className="text-xl font-bold text-primary">HairCure</h1>
+                <p className="text-xs text-muted-foreground">Tratamientos Capilares</p>
+              </div>
             </Link>
           </div>
 
@@ -56,35 +61,54 @@ export const EcommerceTemplate = ({
             <nav className="flex space-x-6">
               <Link 
                 to="/" 
-                className="text-foreground/70 hover:text-foreground transition-colors"
+                className="text-foreground/70 hover:text-primary transition-colors font-medium"
               >
-                Home
+                Inicio
+              </Link>
+              <Link 
+                to="/tratamientos" 
+                className="text-foreground/70 hover:text-primary transition-colors font-medium"
+              >
+                Tratamientos
               </Link>
               <Link 
                 to="/blog" 
-                className="text-foreground/70 hover:text-foreground transition-colors"
+                className="text-foreground/70 hover:text-primary transition-colors font-medium"
               >
                 Blog
+              </Link>
+              <Link 
+                to="/contacto" 
+                className="text-foreground/70 hover:text-primary transition-colors font-medium"
+              >
+                Contacto
               </Link>
             </nav>
           </div>
 
-          {/* Cart */}
-          {showCart && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={openCart}
-              className="relative"
-            >
-              <ShoppingCart className="h-5 w-5" />
-              {totalItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
-                  {totalItems > 99 ? '99+' : totalItems}
-                </span>
-              )}
-            </Button>
-          )}
+          {/* Cart and Contact */}
+          <div className="flex items-center space-x-4">
+            <div className="hidden lg:flex items-center space-x-2 text-sm text-muted-foreground">
+              <Phone className="h-4 w-4" />
+              <span>+34 900 123 456</span>
+            </div>
+            
+            {showCart && (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={openCart}
+                className="relative hover:bg-primary/10"
+              >
+                <ShoppingCart className="h-5 w-5 text-primary" />
+                {totalItems > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-accent text-accent-foreground text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                    {totalItems > 99 ? '99+' : totalItems}
+                  </span>
+                )}
+              </Button>
+            )}
+          </div>
         </div>
 
         {/* Page Title */}
@@ -100,45 +124,114 @@ export const EcommerceTemplate = ({
   )
 
   const footer = (
-    <div className={`bg-black text-white py-12 ${footerClassName}`}>
+    <div className={`bg-gray-900 text-white py-16 ${footerClassName}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
-          <div>
-            <BrandLogoLeft />
-            <p className="mt-4 text-white/70">
-              Your trusted online store
+          <div className="col-span-1 md:col-span-2">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-10 h-10 medical-gradient rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-xl">HC</span>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-white">HairCure</h3>
+                <p className="text-sm text-gray-400">Tratamientos Capilares</p>
+              </div>
+            </div>
+            <p className="text-gray-300 mb-6 max-w-md">
+              Especialistas en tratamientos para la calvicie con productos clínicamente probados. 
+              Más de 10,000 clientes han recuperado su confianza con nosotros.
             </p>
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2">
+                <Phone className="h-4 w-4 text-primary" />
+                <span className="text-gray-300">+34 900 123 456</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Mail className="h-4 w-4 text-primary" />
+                <span className="text-gray-300">info@haircure.es</span>
+              </div>
+            </div>
           </div>
 
           {/* Links */}
           <div>
-            <h3 className="font-semibold mb-4 text-white">Links</h3>
+            <h3 className="font-semibold mb-4 text-white">Productos</h3>
             <div className="space-y-2">
               <Link 
-                to="/" 
-                className="block text-white/70 hover:text-white transition-colors"
+                to="/tratamientos-orales" 
+                className="block text-gray-300 hover:text-white transition-colors"
               >
-                Home
+                Tratamientos Orales
               </Link>
               <Link 
-                to="/blog" 
-                className="block text-white/70 hover:text-white transition-colors"
+                to="/soluciones-topicas" 
+                className="block text-gray-300 hover:text-white transition-colors"
               >
-                Blog
+                Soluciones Tópicas
+              </Link>
+              <Link 
+                to="/kits-completos" 
+                className="block text-gray-300 hover:text-white transition-colors"
+              >
+                Kits Completos
+              </Link>
+              <Link 
+                to="/vitaminas" 
+                className="block text-gray-300 hover:text-white transition-colors"
+              >
+                Vitaminas
               </Link>
             </div>
           </div>
 
-          {/* Social Links */}
+          {/* Support */}
           <div>
-            <h3 className="font-semibold mb-4 text-white">Follow Us</h3>
-            <SocialLinks />
+            <h3 className="font-semibold mb-4 text-white">Soporte</h3>
+            <div className="space-y-2">
+              <Link 
+                to="/como-funciona" 
+                className="block text-gray-300 hover:text-white transition-colors"
+              >
+                ¿Cómo Funciona?
+              </Link>
+              <Link 
+                to="/garantia" 
+                className="block text-gray-300 hover:text-white transition-colors"
+              >
+                Garantía
+              </Link>
+              <Link 
+                to="/envios" 
+                className="block text-gray-300 hover:text-white transition-colors"
+              >
+                Envíos
+              </Link>
+              <Link 
+                to="/contacto" 
+                className="block text-gray-300 hover:text-white transition-colors"
+              >
+                Contacto
+              </Link>
+            </div>
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-white/20 text-center text-white/70">
-          <p>&copy; 2024 Your Store. All rights reserved.</p>
+        <div className="mt-12 pt-8 border-t border-gray-800">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <p className="text-gray-400 text-sm">
+              &copy; 2024 HairCure. Todos los derechos reservados.
+            </p>
+            <div className="flex items-center space-x-6 mt-4 md:mt-0">
+              <Link to="/privacidad" className="text-gray-400 hover:text-white text-sm transition-colors">
+                Privacidad
+              </Link>
+              <Link to="/terminos" className="text-gray-400 hover:text-white text-sm transition-colors">
+                Términos
+              </Link>
+              <SocialLinks />
+            </div>
+          </div>
         </div>
       </div>
     </div>
